@@ -1,0 +1,35 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Keertana Vajjhala"
+  favicon: "assets/favicon.ico"
+  navbar:
+    left:
+      - href: index.qmd
+        text: About
+      - href: experience.qmd
+        text: Experience
+      - href: projects.qmd
+        text: Projects
+      - href: publications.qmd
+        text: Publications
+      - href: contact.qmd
+        text: Contact
+    right:
+      - icon: file-earmark-pdf
+        href: assets/Keertana_Resume.pdf
+        text: Resume
+        target: _blank
+
+  page-footer:
+    center: "© 2026 Keertana Vajjhala"
+
+format:
+  html:
+    theme:
+      light: flatly
+    css: styles.css
+    toc: false
+    smooth-scroll: true

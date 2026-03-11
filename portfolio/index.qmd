@@ -1,0 +1,80 @@
+---
+title: ""
+page-layout: full
+---
+
+<div class="page-wrap">
+
+<div class="hero">
+
+# Keertana Vajjhala
+
+<div class="subtitle">Digital IC Design Engineer · VLSI · Computer Architecture</div>
+
+<div class="tagline">
+Graduate student at the University of Illinois Urbana-Champaign (MEng ECE, Dec 2026), 
+with 2+ years of industry experience designing and verifying ASIC silicon at Samsung Semiconductors. 
+I work at the intersection of RTL design, microarchitecture, and SoC verification — 
+building hardware that has to work the first time.
+</div>
+
+<div class="hero-links">
+  <a href="experience.qmd">Experience →</a>
+  <a href="projects.qmd">Projects →</a>
+  <a href="assets/Keertana_Resume.pdf" target="_blank">Resume (PDF) →</a>
+  <a href="contact.qmd">Contact →</a>
+</div>
+
+</div>
+
+---
+
+<p class="section-header">Background</p>
+
+I earned my Bachelor of Technology in Electronics and Communication (specialization: VLSI) from PES University, Bangalore, graduating with an 8.58 GPA and the MRD Merit Scholarship (top of class). At Samsung, I progressed from hardware intern to Senior Engineer, shipping multiple ASIC tape-outs for datacenter, client, and automotive NVMe SSD controllers. My graduate coursework at UIUC spans Advanced Computer Architecture, VLSI Design, Applied Parallel Programming (CUDA), and Logic Synthesis.
+
+My technical interests center on low-power digital design, SoC microarchitecture, and the verification methodologies required to build reliable silicon at scale. I am particularly drawn to constrained-domain problems — implantable devices, edge inference accelerators — where every microwatt and every gate must be justified.
+
+---
+
+<p class="section-header">Skills</p>
+
+<div class="skills-group">
+<div class="skills-label">HDL & Languages</div>
+<span class="tag">SystemVerilog</span>
+<span class="tag">Verilog</span>
+<span class="tag">VHDL</span>
+<span class="tag">Python</span>
+<span class="tag">C / C++</span>
+</div>
+
+<div class="skills-group">
+<div class="skills-label">EDA & Flows</div>
+<span class="tag">Synopsys Design Compiler</span>
+<span class="tag">Cadence Virtuoso</span>
+<span class="tag">Xilinx Vivado</span>
+<span class="tag">Synthesis</span>
+<span class="tag">Place & Route</span>
+<span class="tag">Timing Analysis</span>
+</div>
+
+<div class="skills-group">
+<div class="skills-label">Verification</div>
+<span class="tag">UVM</span>
+<span class="tag">Functional Verification</span>
+<span class="tag">Formal Verification</span>
+<span class="tag">DFT</span>
+<span class="tag">CDC</span>
+<span class="tag">LDRC</span>
+</div>
+
+<div class="skills-group">
+<div class="skills-label">Protocols & Interfaces</div>
+<span class="tag">PCIe</span>
+<span class="tag">NVMe</span>
+<span class="tag">UFS 4.0</span>
+<span class="tag">AXI</span>
+<span class="tag">AHB</span>
+</div>
+
+</div>

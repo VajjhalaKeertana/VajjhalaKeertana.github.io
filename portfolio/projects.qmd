@@ -1,0 +1,64 @@
+---
+title: ""
+page-layout: full
+---
+
+<div class="page-wrap">
+
+<p class="section-header">Projects</p>
+
+<div class="project-grid">
+
+<div class="project-card">
+<h3>RISC-V Out-of-Order Processor</h3>
+<div class="proj-meta">UIUC ECE411 · Nov – Dec 2025</div>
+<p>
+Designed and implemented a full RISC-V RV32I out-of-order processor in SystemVerilog, featuring ERR-based register renaming, reorder buffer (ROB), reservation stations, load-store queue (LSQ), and speculative execution. Built a 2-way superscalar pipeline with dual-issue, out-of-order execution, and in-order commit. Implemented GSHARE branch prediction and misprediction recovery to minimize control hazard penalties. Verified correctness through directed and random testbenches across the full RV32I instruction set.
+</p>
+<span class="tag">SystemVerilog</span>
+<span class="tag">Microarchitecture</span>
+<span class="tag">RISC-V</span>
+<span class="tag">OoO Execution</span>
+<span class="tag">Branch Prediction</span>
+</div>
+
+<div class="project-card">
+<h3>RISC-V32I Single-Cycle Datapath</h3>
+<div class="proj-meta">UIUC ECE425 · 2025</div>
+<p>
+Designed a bit-sliced RISC-V32I single-cycle processor datapath schematic and physical layout in Cadence Virtuoso, including a full ALU and register file layout. Performed LVS/DRC signoff and applied Euler path-based diffusion string optimization for standard cell layouts (XOR, XNOR, MUX2, DFF). Established transistor sizing conventions and debugged schematic errors through systematic LVS analysis.
+</p>
+<span class="tag">Cadence Virtuoso</span>
+<span class="tag">VLSI Layout</span>
+<span class="tag">LVS/DRC</span>
+<span class="tag">RISC-V</span>
+<span class="tag">Standard Cells</span>
+</div>
+
+<div class="project-card">
+<h3>DRAM Scheduling Policy Analysis</h3>
+<div class="proj-meta">UIUC ECE511 · 2025</div>
+<p>
+Implemented and evaluated custom DRAM scheduling policies in DRAMsim3, including permutation-based address interleaving (XOR-based bank/bankgroup scrambling) and policies including FR-FCFS, Oldest-First, Read-over-Write, CMRHA, and Idle-Bank-First. Benchmarked across FFT, LU, and RADIX workload traces to characterize memory-level parallelism and scheduling trade-offs.
+</p>
+<span class="tag">DRAMsim3</span>
+<span class="tag">Memory Architecture</span>
+<span class="tag">Scheduling</span>
+<span class="tag">Python</span>
+</div>
+
+<div class="project-card">
+<h3>Refreshable Braille Display</h3>
+<div class="proj-meta">PES University · Jan – Dec 2022 · IEEE Published</div>
+<p>
+Developed a portable refreshable Braille display for visually impaired users using servo motor control and embedded C on an ESP32 microcontroller. Optimized hardware-software co-design to achieve a 57.5% reduction in power consumption, a 20°C drop in operating temperature, and a 71.6% cost reduction — while maintaining a 3.6 Hz refresh rate. Published at IEEE ICONAT 2023.
+</p>
+<span class="tag">Embedded C</span>
+<span class="tag">ESP32</span>
+<span class="tag">Low-Power Design</span>
+<span class="tag">IEEE Published</span>
+</div>
+
+</div>
+
+</div>

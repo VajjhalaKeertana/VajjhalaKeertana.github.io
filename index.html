@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Keertana Vajjhala</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fafaf8;
+      --ink: #111110;
+      --muted: #888880;
+      --accent: #1a4fd6;
+      --border: #e4e4e0;
+      --card: #ffffff;
+      --tag-bg: #f0f0ec;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250,250,248,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+
+    .nav-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    .nav-resume {
+      background: var(--ink);
+      color: #fff !important;
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-size: 0.82rem !important;
+      transition: background 0.2s !important;
+    }
+
+    .nav-resume:hover { background: #333 !important; color: #fff !important; }
+
+    /* ── LAYOUT ── */
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    section {
+      padding: 5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    section:last-child { border-bottom: none; }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── HERO ── */
+    #about { padding-top: 6rem; padding-bottom: 5rem; }
+
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 1.6rem;
+      font-weight: 400;
+    }
+
+    .hero-bio {
+      font-size: 1.05rem;
+      max-width: 580px;
+      color: #333;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .hero-links { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+
+    .hero-links a {
+      font-size: 0.88rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+      padding-bottom: 1px;
+    }
+
+    .hero-links a:hover { border-bottom-color: var(--accent); }
+
+    /* Skills */
+    .skills-grid { display: flex; flex-direction: column; gap: 1rem; }
+
+    .skill-row { display: flex; gap: 1rem; align-items: baseline; flex-wrap: wrap; }
+
+    .skill-cat {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      min-width: 130px;
+      padding-top: 2px;
+    }
+
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .tag {
+      background: var(--tag-bg);
+      color: #444;
+      font-size: 0.78rem;
+      padding: 3px 10px;
+      border-radius: 3px;
+      font-weight: 400;
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .exp-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .exp-item:first-child { padding-top: 0; }
+
+    .exp-date { font-size: 0.8rem; color: var(--muted); padding-top: 3px; }
+
+    .exp-co {
+      font-weight: 600;
+      font-size: 0.97rem;
+      margin-bottom: 2px;
+    }
+
+    .exp-role {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.7rem;
+    }
+
+    .exp-desc { font-size: 0.88rem; color: #444; line-height: 1.75; }
+
+    /* ── PROJECTS ── */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.6rem;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+
+    .project-card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+      transform: translateY(-2px);
+    }
+
+    .proj-title {
+      font-weight: 600;
+      font-size: 0.97rem;
+      margin-bottom: 4px;
+    }
+
+    .proj-meta { font-size: 0.77rem; color: var(--muted); margin-bottom: 0.75rem; }
+
+    .proj-desc { font-size: 0.86rem; color: #444; line-height: 1.7; margin-bottom: 1rem; }
+
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+    /* ── PUBLICATIONS ── */
+    .pub-item {
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pub-item:first-child { padding-top: 0; }
+    .pub-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .pub-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
+
+    .pub-venue { font-size: 0.84rem; color: var(--accent); margin-bottom: 4px; }
+
+    .pub-authors { font-size: 0.83rem; color: var(--muted); }
+
+    /* ── CONTACT ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.8rem;
+    }
+
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 0.88rem;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .contact-card:hover {
+      background: var(--card);
+      border-color: #ccc;
+      color: var(--accent);
+    }
+
+    .contact-icon {
+      width: 36px; height: 36px;
+      background: var(--tag-bg);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-icon svg { width: 16px; height: 16px; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── FADE IN ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 1rem; }
+      .nav-links { gap: 1rem; }
+      .wrap { padding: 0 1.2rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.3rem; }
+      .exp-date { display: none; }
+      .project-grid { grid-template-columns: 1fr; }
+      .skill-row { flex-direction: column; gap: 0.4rem; }
+      .skill-cat { min-width: unset; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-name" href="#about">Keertana Vajjhala</a>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="assets/Keertana_Resume.pdf" target="_blank" class="nav-resume">Resume</a></li>
+  </ul>
+</nav>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="wrap">
+    <div class="fade-in">
+      <h1 class="hero-name">Keertana Vajjhala</h1>
+      <p class="hero-title">Digital IC Design · SoC Verification · Computer Architecture</p>
+      <p class="hero-bio">
+        Graduate student at the University of Illinois Urbana-Champaign (MEng ECE, Dec 2026),
+        with 2+ years of industry experience designing and verifying ASIC silicon at Samsung Semiconductors.
+        I work at the intersection of RTL design, microarchitecture, and SoC verification —
+        building hardware that has to work the first time.
+      </p>
+      <div class="hero-links">
+        <a href="#experience">Experience ↓</a>
+        <a href="#projects">Projects ↓</a>
+        <a href="mailto:keertanavajjhala@gmail.com">keertanavajjhala@gmail.com</a>
+        <a href="https://linkedin.com/in/vajjhala-keertana-b20286211" target="_blank">LinkedIn ↗</a>
+      </div>
+    </div>
+
+    <div style="height: 3rem;"></div>
+
+    <div class="section-label fade-in">Skills</div>
+    <div class="skills-grid fade-in">
+      <div class="skill-row">
+        <span class="skill-cat">HDL & Languages</span>
+        <div class="skill-tags">
+          <span class="tag">SystemVerilog</span>
+          <span class="tag">Verilog</span>
+          <span class="tag">VHDL</span>
+          <span class="tag">Python</span>
+          <span class="tag">C / C++</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-cat">EDA & Flows</span>
+        <div class="skill-tags">
+          <span class="tag">Synopsys Design Compiler</span>
+          <span class="tag">Cadence Virtuoso</span>
+          <span class="tag">Xilinx Vivado</span>
+          <span class="tag">Synthesis</span>
+          <span class="tag">Place & Route</span>
+          <span class="tag">Timing Analysis</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-cat">Verification</span>
+        <div class="skill-tags">
+          <span class="tag">UVM</span>
+          <span class="tag">Functional Verification</span>
+          <span class="tag">Formal Verification</span>
+          <span class="tag">DFT</span>
+          <span class="tag">CDC</span>
+          <span class="tag">LDRC</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-cat">Protocols</span>
+        <div class="skill-tags">
+          <span class="tag">PCIe</span>
+          <span class="tag">NVMe</span>
+          <span class="tag">UFS 4.0</span>
+          <span class="tag">AXI</span>
+          <span class="tag">AHB</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ── -->
+<section id="experience">
+  <div class="wrap">
+    <div class="section-label fade-in">Experience & Education</div>
+    <div class="exp-list">
+
+      <div class="exp-item fade-in">
+        <div class="exp-date">Aug 2023 – Aug 2025</div>
+        <div>
+          <div class="exp-co">Samsung Semiconductors India Research</div>
+          <div class="exp-role">Senior Engineer · Bangalore, India</div>
+          <div class="exp-desc">Designed and verified digital circuits in SystemVerilog for NVMe SSD controller ASICs targeting datacenter, client, and automotive platforms. Owned RTL implementation, AXI/AHB protocol integration, synthesis and timing closure in Synopsys Design Compiler, and full signoff (DFT lint, CDC, LDRC). Built and ran UVM testbenches for PCIe and NVMe functional verification. Led latency reduction initiatives recognized with Samsung's SPOT award and Employee of the Month distinction.</div>
+        </div>
+      </div>
+
+      <div class="exp-item fade-in">
+        <div class="exp-date">Jan 2023 – Aug 2023</div>
+        <div>
+          <div class="exp-co">Samsung Semiconductors India Research</div>
+          <div class="exp-role">Hardware Intern · Bangalore, India</div>
+          <div class="exp-desc">Designed embedded memory controllers and UFS 4.0 interface logic for the Samsung Galaxy S25 series using Verilog HDL and ASIC design methodologies. Developed UVM-based testbenches and performed functional verification and coverage analysis against design specifications.</div>
+        </div>
+      </div>
+
+      <div class="exp-item fade-in">
+        <div class="exp-date">May 2022 – Jul 2022</div>
+        <div>
+          <div class="exp-co">Center of Robotics and Innovation</div>
+          <div class="exp-role">Summer Intern · Funded by Neuberg Anand Labs</div>
+          <div class="exp-desc">Programmed a 5-axis robotic arm control system for automated medical sample identification and sorting via barcode scanning in embedded C. Integrated hardware with Raspberry Pi and implemented real-time control algorithms currently deployed in diagnostic laboratory operations.</div>
+        </div>
+      </div>
+
+      <div class="exp-item fade-in">
+        <div class="exp-date">Expected Dec 2026</div>
+        <div>
+          <div class="exp-co">University of Illinois Urbana-Champaign</div>
+          <div class="exp-role">Master of Engineering, Electrical and Computer Engineering</div>
+          <div class="exp-desc">Coursework: Computer Organization & Design (ECE411), Applied Parallel Programming / CUDA (ECE408), Logic Synthesis (ECE462), Introduction to VLSI (ECE425), Advanced Computer Architecture (ECE511).</div>
+        </div>
+      </div>
+
+      <div class="exp-item fade-in">
+        <div class="exp-date">Aug 2019 – Jun 2023</div>
+        <div>
+          <div class="exp-co">PES University, RR Campus · Bangalore</div>
+          <div class="exp-role">B.Tech, Electronics & Communication (VLSI) · GPA 8.58/10</div>
+          <div class="exp-desc">MRD Scholarship — 40% merit award to top of class. Graduated with Distinction. Coursework: Advanced Digital Design, Digital VLSI, Verification of Digital Systems, Advanced Hardware Acceleration.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── PROJECTS ── -->
+<section id="projects">
+  <div class="wrap">
+    <div class="section-label fade-in">Projects</div>
+    <div class="project-grid">
+
+      <div class="project-card fade-in">
+        <div class="proj-title">RISC-V Out-of-Order Processor</div>
+        <div class="proj-meta">UIUC ECE411 · Nov – Dec 2025</div>
+        <div class="proj-desc">Designed a full RV32I out-of-order processor in SystemVerilog featuring ERR-based register renaming, ROB, reservation stations, LSQ, and speculative execution. Built a 2-way superscalar pipeline with GSHARE branch prediction and misprediction recovery. Verified correctness through directed and random testbenches across the full instruction set.</div>
+        <div class="proj-tags">
+          <span class="tag">SystemVerilog</span>
+          <span class="tag">RISC-V</span>
+          <span class="tag">OoO Execution</span>
+          <span class="tag">Branch Prediction</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="proj-title">RISC-V32I Single-Cycle Datapath</div>
+        <div class="proj-meta">UIUC ECE425 · 2025</div>
+        <div class="proj-desc">Designed a bit-sliced RISC-V32I single-cycle processor datapath schematic and physical layout in Cadence Virtuoso, including full ALU and register file layouts. Applied Euler path-based diffusion string optimization for standard cells. Completed LVS/DRC signoff.</div>
+        <div class="proj-tags">
+          <span class="tag">Cadence Virtuoso</span>
+          <span class="tag">VLSI Layout</span>
+          <span class="tag">LVS/DRC</span>
+          <span class="tag">Standard Cells</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="proj-title">DRAM Scheduling Policy Analysis</div>
+        <div class="proj-meta">UIUC ECE511 · 2025</div>
+        <div class="proj-desc">Implemented and evaluated custom DRAM scheduling policies in DRAMsim3, including XOR-based bank/bankgroup address interleaving and policies such as FR-FCFS, Oldest-First, Read-over-Write, and Idle-Bank-First. Benchmarked across FFT, LU, and RADIX workload traces.</div>
+        <div class="proj-tags">
+          <span class="tag">DRAMsim3</span>
+          <span class="tag">Memory Architecture</span>
+          <span class="tag">Python</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="proj-title">Refreshable Braille Display</div>
+        <div class="proj-meta">PES University · Jan – Dec 2022 · IEEE Published</div>
+        <div class="proj-desc">Developed a portable Braille display for visually impaired users using servo motor control and embedded C on ESP32. Achieved 57.5% power reduction, 20°C temperature decrease, and 71.6% cost reduction while maintaining 3.6 Hz refresh rate. Published at IEEE ICONAT 2023.</div>
+        <div class="proj-tags">
+          <span class="tag">Embedded C</span>
+          <span class="tag">ESP32</span>
+          <span class="tag">Low-Power</span>
+          <span class="tag">IEEE Published</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── PUBLICATIONS ── -->
+<section id="publications">
+  <div class="wrap">
+    <div class="section-label fade-in">Publications</div>
+    <div class="pub-item fade-in">
+      <div class="pub-title">Interactive Educational Device for the Visually Impaired Using Refreshable Braille Display</div>
+      <div class="pub-venue">IEEE ICONAT 2023 — International Conference on Advancement in Nanoelectronics and Telecommunication</div>
+      <div class="pub-authors">Keertana Vajjhala et al. · Available on IEEE Xplore</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="wrap">
+    <div class="section-label fade-in">Contact</div>
+    <p class="fade-in" style="color:#444; margin-bottom:1.8rem; max-width:480px;">
+      Open to internship and full-time opportunities in digital IC design, SoC verification, and computer architecture.
+    </p>
+    <div class="contact-grid">
+
+      <a class="contact-card fade-in" href="mailto:keertanavajjhala@gmail.com">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/>
+          </svg>
+        </div>
+        <span>keertanavajjhala@gmail.com</span>
+      </a>
+
+      <a class="contact-card fade-in" href="https://linkedin.com/in/vajjhala-keertana-b20286211" target="_blank">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/>
+          </svg>
+        </div>
+        <span>LinkedIn</span>
+      </a>
+
+      <a class="contact-card fade-in" href="https://github.com/VajjhalaKeertana" target="_blank">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+        </div>
+        <span>GitHub</span>
+      </a>
+
+      <a class="contact-card fade-in" href="assets/Keertana_Resume.pdf" target="_blank">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/>
+          </svg>
+        </div>
+        <span>Download Resume</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Keertana Vajjhala</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

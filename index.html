@@ -68,11 +68,19 @@
     .exp-co { font-weight: 600; font-size: 0.96rem; margin-bottom: 2px; }
     .exp-role { font-size: 0.84rem; color: var(--muted); margin-bottom: 0.65rem; }
     .exp-desc { font-size: 0.87rem; color: #444; line-height: 1.75; }
+    .exp-desc ul { padding-left: 1.1rem; margin-top: 0.4rem; }
+    .exp-desc li { margin-bottom: 0.3rem; }
+    .current-badge { display: inline-block; font-size: 0.68rem; font-weight: 600; color: #1a7d4a; background: #e7f5ec; padding: 2px 8px; border-radius: 3px; margin-left: 8px; vertical-align: middle; }
 
     /* PROJECTS */
     .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.2rem; }
-    .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 1.5rem; transition: box-shadow 0.25s, transform 0.25s; text-decoration: none; color: inherit; display: block; }
+    .project-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 1.5rem;
+      transition: box-shadow 0.25s, transform 0.25s; text-decoration: none; color: inherit; display: block;
+      cursor: pointer; width: 100%; text-align: left; font: inherit;
+    }
     .project-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .project-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     .proj-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
     .proj-title { font-weight: 600; font-size: 0.96rem; }
     .proj-badge { font-size: 0.72rem; background: #e8f0ff; color: var(--accent); padding: 2px 8px; border-radius: 3px; font-weight: 500; white-space: nowrap; margin-left: 8px; flex-shrink: 0; }
@@ -80,6 +88,41 @@
     .proj-desc { font-size: 0.85rem; color: #444; line-height: 1.7; margin-bottom: 0.9rem; }
     .proj-tags { display: flex; flex-wrap: wrap; gap: 5px; }
     .proj-link { display: inline-flex; align-items: center; gap: 4px; font-size: 0.78rem; color: var(--accent); margin-top: 0.7rem; font-weight: 500; }
+
+    /* PROJECT MODAL */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(17,17,16,0.5); backdrop-filter: blur(2px);
+      display: none; align-items: flex-start; justify-content: center; z-index: 1000;
+      padding: 4vh 1.2rem; overflow-y: auto;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #fff; border-radius: 10px; max-width: 620px; width: 100%;
+      padding: 2.4rem; box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+      animation: modalIn 0.22s ease;
+    }
+    @keyframes modalIn { from { opacity: 0; transform: translateY(10px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .modal-close {
+      float: right; background: none; border: none; font-size: 1.4rem; line-height: 1; color: var(--muted);
+      cursor: pointer; padding: 2px 6px; margin: -6px -6px 0 0; border-radius: 4px;
+    }
+    .modal-close:hover { color: var(--ink); background: var(--tag-bg); }
+    .modal-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 4px; }
+    .modal-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; line-height: 1.25; }
+    .modal-meta { font-size: 0.8rem; color: var(--muted); margin: 6px 0 1.4rem; }
+    .modal-section { margin-bottom: 1.4rem; }
+    .modal-section:last-of-type { margin-bottom: 0; }
+    .modal-section h4 { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+    .modal-section p { font-size: 0.89rem; color: #333; line-height: 1.75; margin-bottom: 0.5rem; }
+    .modal-section ul { padding-left: 1.15rem; }
+    .modal-section li { font-size: 0.89rem; color: #333; line-height: 1.7; margin-bottom: 0.4rem; }
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.8rem; margin-top: 0.3rem; }
+    .stat-box { background: var(--tag-bg); border-radius: 6px; padding: 0.9rem 0.7rem; text-align: center; }
+    .stat-num { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: var(--accent); line-height: 1.1; }
+    .stat-label { font-size: 0.72rem; color: var(--muted); margin-top: 4px; }
+    .modal-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 1.2rem; }
+    .modal-link { display: inline-flex; align-items: center; gap: 4px; font-size: 0.83rem; color: var(--accent); margin-top: 1.3rem; font-weight: 500; text-decoration: none; }
+    .modal-link:hover { text-decoration: underline; }
 
     /* PUBLICATIONS */
     .pub-item { padding: 2rem 0; border-bottom: 1px solid var(--border); }
@@ -113,6 +156,7 @@
       .project-grid { grid-template-columns: 1fr; }
       .skill-row { flex-direction: column; gap: 0.3rem; }
       .skill-cat { min-width: unset; }
+      .modal-box { padding: 1.6rem; }
     }
   </style>
 </head>
@@ -137,8 +181,9 @@
         <h1 class="hero-name">Keertana Vajjhala</h1>
         <p class="hero-title">Computer Architecture &nbsp;·&nbsp; ASIC Design &nbsp;·&nbsp; Digital IC &nbsp;·&nbsp; SoC Verification</p>
         <p class="hero-bio">
-          Graduate student at the University of Illinois Urbana-Champaign (MEng ECE, Dec 2026),
-          with 2+ years of industry experience designing and verifying ASIC silicon at Samsung Semiconductors.
+          Graduate student at the University of Illinois Urbana-Champaign (MEng ECE, expected May 2027),
+          with 2+ years of industry experience designing and verifying ASIC silicon at Samsung Semiconductors,
+          currently interning on NoC and PCIe hardware at Chicago UpDown Computing.
           I work at the intersection of RTL design, microarchitecture, and SoC verification.
         </p>
         <div class="hero-links">
@@ -165,6 +210,7 @@
           <span class="tag">Pipelining</span>
           <span class="tag">RISC-V</span>
           <span class="tag">Memory Systems</span>
+          <span class="tag">Network-on-Chip</span>
           <span class="tag">CUDA / Parallel Programming</span>
         </div>
       </div>
@@ -219,11 +265,34 @@
     <div class="section-label fade-in">Experience & Education</div>
 
     <div class="exp-item fade-in">
+      <div class="exp-date">Jul 2026 – Present</div>
+      <div>
+        <div class="exp-co">Chicago UpDown Computing Inc.<span class="current-badge">Current</span></div>
+        <div class="exp-role">Hardware Intern · Chicago, IL</div>
+        <div class="exp-desc">
+          <ul>
+            <li>Designed and integrated performance-counter registers into the PCIe BAR0 address space, enabling host-side access to per-lane NoC statistics.</li>
+            <li>Developed and verified SystemVerilog RTL for the accelerator's NoC fabric, interconnect, and SIT arbiter (64-lane architecture); root-caused and fixed a NoC memory deadlock via RTL changes to escape-VC handling.</li>
+            <li>Built UVM verification environments and test plans for NoC and PCIe/AXI transaction testing; ran bandwidth/saturation tests to characterize NoC throughput under load.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
       <div class="exp-date">Aug 2023 – Aug 2025</div>
       <div>
         <div class="exp-co">Samsung Semiconductors India Research</div>
         <div class="exp-role">Senior Engineer · Bangalore, India</div>
-        <div class="exp-desc">Designed and verified digital circuits in SystemVerilog for NVMe SSD controller ASICs targeting datacenter, client, and automotive platforms. Owned RTL implementation, AXI/AHB protocol integration, synthesis and timing closure in Synopsys Design Compiler, and full signoff (DFT lint, CDC, LDRC). Built and ran UVM testbenches for PCIe and NVMe functional verification. Ensured SRAM integrity and resolved race conditions through systematic debugging. Led latency reduction initiatives recognized with Samsung's SPOT award and Employee of the Month distinction.</div>
+        <div class="exp-desc">
+          <ul>
+            <li>Designed and developed microarchitectures using Verilog and SystemVerilog for NVMe SSD controllers targeting datacenter, client, and automotive ASIC platforms, focusing on performance optimization and reliability enhancement.</li>
+            <li>Implemented clock gating logic and integrated AXI/AHB protocol interfaces with NVMe IP to reduce dynamic power consumption.</li>
+            <li>Ran and analyzed failures for comprehensive regressions, Synthesis, DFT Lint, CDC, and LDRC validation, and ensured SRAM integrity through ECC engine logic.</li>
+            <li>Implemented namespace lookup table logic to process data and interface with HDMA for host data transfer.</li>
+            <li>Recognized as Employee of the Month and awarded SPOT recognition for driving latency reduction initiatives and ensuring high-quality releases.</li>
+          </ul>
+        </div>
       </div>
     </div>
 
@@ -232,7 +301,12 @@
       <div>
         <div class="exp-co">Samsung Semiconductors India Research</div>
         <div class="exp-role">Hardware Intern · Bangalore, India</div>
-        <div class="exp-desc">Designed embedded memory controllers and UFS 4.0 interface logic for the Samsung Galaxy S25 series using Verilog HDL and ASIC design methodologies. Developed UVM-based testbenches and performed functional verification and coverage analysis against design specifications.</div>
+        <div class="exp-desc">
+          <ul>
+            <li>Designed embedded memory controllers and UFS 4.0 interface logic for the Samsung Galaxy S25 series using Verilog HDL and ASIC design methodologies.</li>
+            <li>Developed UVM-based testbenches and performed functional verification and coverage analysis against design specifications.</li>
+          </ul>
+        </div>
       </div>
     </div>
 
@@ -241,12 +315,17 @@
       <div>
         <div class="exp-co">Center of Robotics and Innovation</div>
         <div class="exp-role">Summer Intern · Funded by Neuberg Anand Labs</div>
-        <div class="exp-desc">Programmed a 5-axis robotic arm control system for automated medical sample identification and sorting via barcode scanning in embedded C. Integrated hardware with Raspberry Pi; real-time control algorithms are currently deployed in diagnostic laboratory operations.</div>
+        <div class="exp-desc">
+          <ul>
+            <li>Programmed a 5-axis robotic arm control system for automated medical sample identification and sorting via barcode scanning in embedded C.</li>
+            <li>Integrated hardware with Raspberry Pi; real-time control algorithms are currently deployed in diagnostic laboratory operations.</li>
+          </ul>
+        </div>
       </div>
     </div>
 
     <div class="exp-item fade-in">
-      <div class="exp-date">Expected Dec 2026</div>
+      <div class="exp-date">Expected May 2027</div>
       <div>
         <div class="exp-co">University of Illinois Urbana-Champaign</div>
         <div class="exp-role">Master of Engineering, Electrical and Computer Engineering</div>
@@ -269,56 +348,8 @@
 <section id="projects">
   <div class="wrap">
     <div class="section-label fade-in">Projects</div>
-    <div class="project-grid">
-
-      <a class="project-card fade-in" href="https://github.com/VajjhalaKeertana" target="_blank">
-        <div class="proj-header">
-          <div class="proj-title">RISC-V Out-of-Order Processor</div>
-          <span class="proj-badge">GitHub ↗</span>
-        </div>
-        <div class="proj-meta">UIUC ECE411 · Nov – Dec 2025</div>
-        <div class="proj-desc">Designed a full RV32I out-of-order processor in SystemVerilog featuring ERR-based register renaming, ROB, reservation stations, LSQ, and speculative execution. Built a 2-way superscalar pipeline with GSHARE branch prediction and misprediction recovery. Verified correctness through directed and random testbenches.</div>
-        <div class="proj-tags">
-          <span class="tag">SystemVerilog</span><span class="tag">RISC-V</span><span class="tag">OoO Execution</span><span class="tag">Branch Prediction</span>
-        </div>
-      </a>
-
-      <div class="project-card fade-in">
-        <div class="proj-header">
-          <div class="proj-title">RISC-V32I Single-Cycle Datapath</div>
-          <span class="proj-badge">In Progress</span>
-        </div>
-        <div class="proj-meta">UIUC ECE425 · 2025–2026</div>
-        <div class="proj-desc">Designing a bit-sliced RISC-V32I single-cycle processor datapath schematic and physical layout in Cadence Virtuoso, including full ALU and register file layouts. Applying Euler path-based diffusion string optimization for standard cells with LVS/DRC signoff.</div>
-        <div class="proj-tags">
-          <span class="tag">Cadence Virtuoso</span><span class="tag">VLSI Layout</span><span class="tag">LVS/DRC</span><span class="tag">Standard Cells</span>
-        </div>
-      </div>
-
-      <div class="project-card fade-in">
-        <div class="proj-header">
-          <div class="proj-title">DRAM Scheduling Policy Analysis</div>
-        </div>
-        <div class="proj-meta">UIUC ECE511 · 2025</div>
-        <div class="proj-desc">Implemented and evaluated custom DRAM scheduling policies in DRAMsim3, including XOR-based bank/bankgroup address interleaving and policies such as FR-FCFS, Oldest-First, Read-over-Write, and Idle-Bank-First. Benchmarked across FFT, LU, and RADIX traces.</div>
-        <div class="proj-tags">
-          <span class="tag">DRAMsim3</span><span class="tag">Memory Architecture</span><span class="tag">Python</span>
-        </div>
-      </div>
-
-      <div class="project-card fade-in">
-        <div class="proj-header">
-          <div class="proj-title">Refreshable Braille Display</div>
-          <span class="proj-badge">IEEE Published</span>
-        </div>
-        <div class="proj-meta">PES University · Jan – Dec 2022</div>
-        <div class="proj-desc">Developed a portable Braille display for visually impaired users using servo motor control and embedded C on ESP32. Achieved 57.5% power reduction, 20°C temperature decrease, and 71.6% cost reduction while maintaining 3.6 Hz refresh rate. Published at IEEE ICONAT 2023.</div>
-        <div class="proj-tags">
-          <span class="tag">Embedded C</span><span class="tag">ESP32</span><span class="tag">Low-Power</span>
-        </div>
-      </div>
-
-    </div>
+    <p class="fade-in" style="color:var(--muted); font-size:0.83rem; margin-bottom:1.4rem; margin-top:-1.6rem;">Click a project for the full writeup.</p>
+    <div class="project-grid" id="project-grid"></div>
   </div>
 </section>
 
@@ -372,7 +403,190 @@
 
 <footer>© 2026 Keertana Vajjhala</footer>
 
+<!-- PROJECT MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+    <div class="modal-header">
+      <h3 class="modal-title" id="modal-title"></h3>
+    </div>
+    <div class="modal-meta" id="modal-meta"></div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
 <script>
+  const projects = {
+    riscv_ooo: {
+      title: "RISC-V Out-of-Order Processor",
+      meta: "UIUC ECE411 · Computer Organization & Design · Nov – Dec 2025",
+      badge: "GitHub ↗",
+      link: "https://github.com/VajjhalaKeertana",
+      summary: "Designed a full RV32I out-of-order processor in SystemVerilog featuring register renaming, ROB, reservation stations, LSQ, speculative execution, and single-cycle misprediction flush.",
+      overview: [
+        "Capstone project for UIUC's computer organization course: rebuilt a simple in-order RV32I pipeline into a superscalar, out-of-order core.",
+        "Implemented the core mechanisms that let modern CPUs extract instruction-level parallelism while still committing results in program order."
+      ],
+      details: [
+        "Implemented a Tomasulo-style register renaming scheme with an extended rename register (ERR) table to eliminate false dependencies (WAR/WAW hazards) between in-flight instructions.",
+        "Built a reorder buffer (ROB) to track in-flight instructions and enforce in-order commit and precise exception handling despite out-of-order execution.",
+        "Designed reservation stations to hold and dynamically dispatch instructions to execution units as soon as their operands become available.",
+        "Added a load-store queue (LSQ) to manage memory ordering, handle store-to-load forwarding, and detect memory hazards.",
+        "Developed a GSHARE branch predictor using global history to reduce control-hazard penalties, paired with a single-cycle flush on misprediction — the entire speculative state (ROB entries, reservation stations, rename table) is squashed and recovered in one cycle, so the front end restarts from the correct path without a multi-cycle drain penalty.",
+        "Extended the pipeline to 2-way superscalar: dual-issue and dual-dispatch into the out-of-order core, with in-order commit width matched to retire two instructions per cycle when available.",
+        "Verified functional correctness with directed test cases targeting hazard corner cases plus randomized instruction streams, debugging with waveform traces."
+      ],
+      stats: [
+        { num: "2-way", label: "Superscalar issue" },
+        { num: "RV32I", label: "ISA" },
+        { num: "GSHARE", label: "Branch predictor" },
+        { num: "1 cycle", label: "Misprediction flush" }
+      ],
+      tags: ["SystemVerilog", "RISC-V", "Out-of-Order Execution", "Branch Prediction", "Computer Architecture"]
+    },
+    vlsi_datapath: {
+      title: "RISC-V32I Datapath — Custom Layout to Automated PnR",
+      meta: "UIUC ECE425 · Introduction to VLSI · 2025 – 2026",
+      summary: "Custom standard cell library and full-custom RISC-V32I datapath layout in Cadence Virtuoso, extended into an automated place-and-route flow in Cadence Innovus.",
+      overview: [
+        "Full custom-IC design project: took a RISC-V32I single-cycle datapath from a logical schematic through full-custom physical layout, then extended the flow into automated place-and-route.",
+        "Combined hand-drawn standard-cell design in Cadence Virtuoso with industry-standard automated PnR tooling in Cadence Innovus."
+      ],
+      details: [
+        "Designed a custom standard cell library from scratch in Cadence Virtuoso with a 1.7 µm cell height, covering the primitives needed for a full RISC-V32I datapath.",
+        "Hand-laid-out the full RISC-V32I single-cycle datapath — ALU, register file, immediate generation, and control logic — bit-sliced so each 1-bit slice abuts horizontally for a regular, area-efficient layout.",
+        "Reduced cell area and parasitic capacitance through Euler-path-based diffusion string ordering and drain/source region merging across adjacent transistors.",
+        "Closed clean LVS (layout-versus-schematic) and DRC (design rule check) signoff on the full custom layout.",
+        "Packaged the verified standard cell library into Liberty (.lib) and LEF (.lef) formats, then ran automated place-and-route in Cadence Innovus to lay out the CPU controller and integrate it with the full-custom datapath.",
+        "Extended the flow to auto-PnR the complete CPU using only the custom standard cells, then packaged and substituted a custom register file macro (.lib/.lef) for the reference IP."
+      ],
+      stats: [
+        { num: "1.7 µm", label: "Cell height" },
+        { num: "Full-custom", label: "→ Auto PnR" },
+        { num: "LVS/DRC", label: "Clean signoff" }
+      ],
+      tags: ["Cadence Virtuoso", "Cadence Innovus", "VLSI Layout", "Standard Cell Design", "Automated PnR", "RISC-V"]
+    },
+    dram_sched: {
+      title: "DRAM Scheduling Policy Analysis",
+      meta: "UIUC ECE511 · Advanced Computer Architecture · 2025",
+      summary: "Implemented and evaluated custom DRAM scheduling policies in DRAMsim3 across FFT, LU, and RADIX workloads.",
+      overview: [
+        "Memory-systems study of how DRAM command scheduling and address-mapping choices affect bandwidth utilization and latency under realistic workload traces.",
+        "Used DRAMsim3, a cycle-accurate memory simulator, as the testbed for implementing and comparing scheduling policies."
+      ],
+      details: [
+        "Implemented multiple DRAM command scheduling policies inside DRAMsim3: FR-FCFS (First-Ready, First-Come-First-Served), Oldest-First, Read-over-Write priority, and Idle-Bank-First.",
+        "Designed and integrated an XOR-based bank and bank-group address interleaving scheme to spread accesses more evenly across banks and reduce row-buffer conflicts.",
+        "Ran each policy against FFT, LU, and RADIX memory traces (representative of scientific/parallel workloads with different access patterns) to compare behavior under realistic access streams.",
+        "Compared policies on memory bandwidth utilization, average request latency, and row-buffer hit rate, analyzing where each policy's priority rules helped or hurt depending on the workload's read/write mix and access locality."
+      ],
+      stats: [
+        { num: "4", label: "Scheduling policies" },
+        { num: "3", label: "Benchmark traces" },
+        { num: "XOR", label: "Address interleaving" }
+      ],
+      tags: ["DRAMsim3", "Memory Architecture", "Python", "Computer Architecture"]
+    },
+    braille: {
+      title: "Interactive Educational Device for the Visually Impaired",
+      meta: "PES University · Jan – Dec 2022 · Published, IEEE ICONAT 2023",
+      badge: "IEEE Published",
+      summary: "Portable refreshable Braille display built on ESP32, cutting power, temperature, and cost versus baseline designs.",
+      overview: [
+        "Portable, low-cost refreshable Braille display designed to make Braille learning tools more accessible.",
+        "Built around an array of servo-actuated pins driven by an ESP32 microcontroller; carried through to an IEEE conference publication."
+      ],
+      details: [
+        "Designed the mechanical pin-actuation system using servo motors to physically raise and lower Braille dots, refreshing the display electronically instead of manually.",
+        "Wrote the embedded C firmware on an ESP32 to decode input text into Braille cell patterns and drive the servo array in real time.",
+        "Optimized the drive circuitry and duty cycling of the servos to cut power draw and heat generation without sacrificing refresh speed.",
+        "Iterated on the mechanical and electrical design to bring down bill-of-materials cost, making the device more viable for real-world deployment.",
+        "Co-authored a paper on the design and results, presented at IEEE ICONAT 2023 (International Conference on Advancement in Nanoelectronics and Telecommunication)."
+      ],
+      stats: [
+        { num: "57.5%", label: "Power reduction" },
+        { num: "20°C", label: "Temp. decrease" },
+        { num: "71.6%", label: "Cost reduction" },
+        { num: "3.6 Hz", label: "Refresh rate maintained" }
+      ],
+      tags: ["Embedded C", "ESP32", "Low-Power Design", "Mechatronics"]
+    }
+  };
+
+  const projectOrder = ["riscv_ooo", "vlsi_datapath", "dram_sched", "braille"];
+  const grid = document.getElementById('project-grid');
+
+  projectOrder.forEach(key => {
+    const p = projects[key];
+    const card = document.createElement('button');
+    card.className = 'project-card fade-in';
+    card.setAttribute('type', 'button');
+    card.innerHTML = `
+      <div class="proj-header">
+        <div class="proj-title">${p.title}</div>
+        ${p.badge ? `<span class="proj-badge">${p.badge}</span>` : ''}
+      </div>
+      <div class="proj-meta">${p.meta}</div>
+      <div class="proj-desc">${p.summary}</div>
+      <div class="proj-tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+    `;
+    card.addEventListener('click', () => openModal(key));
+    grid.appendChild(card);
+  });
+
+  const overlay = document.getElementById('modal-overlay');
+  const modalTitle = document.getElementById('modal-title');
+  const modalMeta = document.getElementById('modal-meta');
+  const modalBody = document.getElementById('modal-body');
+  let lastFocused = null;
+
+  function openModal(key) {
+    const p = projects[key];
+    modalTitle.textContent = p.title;
+    modalMeta.textContent = p.meta;
+
+    let statsHtml = '';
+    if (p.stats && p.stats.length) {
+      statsHtml = `
+        <div class="modal-section">
+          <h4>At a glance</h4>
+          <div class="stat-grid">
+            ${p.stats.map(s => `<div class="stat-box"><div class="stat-num">${s.num}</div><div class="stat-label">${s.label}</div></div>`).join('')}
+          </div>
+        </div>`;
+    }
+
+    modalBody.innerHTML = `
+      <div class="modal-section">
+        <h4>Overview</h4>
+        <ul>${p.overview.map(o => `<li>${o}</li>`).join('')}</ul>
+      </div>
+      <div class="modal-section">
+        <h4>What I built</h4>
+        <ul>${p.details.map(d => `<li>${d}</li>`).join('')}</ul>
+      </div>
+      ${statsHtml}
+      <div class="modal-tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      ${p.link ? `<a class="modal-link" href="${p.link}" target="_blank">View on GitHub ↗</a>` : ''}
+    `;
+
+    lastFocused = document.activeElement;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('modal-close').focus();
+  }
+
+  function closeModal() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    if (lastFocused) lastFocused.focus();
+  }
+
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
       if (e.isIntersecting) {
